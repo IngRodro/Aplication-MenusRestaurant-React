@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BoxContainer = styled.section`
-  padding: ${({ $padding }) => $padding}px 20px;
+  padding: ${({ $padding }) => $padding}px 0;
   height: 420px;
   display: flex;
   flex-direction: column;
@@ -17,13 +17,13 @@ export const FormContainer = styled.form`
   width: 70%;
   display: flex;
   flex-direction: column;
-  margin: 20px 20px;
   box-sizing: border-box;
+  align-items: center;
 `;
 
-export const MutedLink = styled.a`
+export const MutedLink = styled.p`
   font-size: 11px;
-  color: rgba(57, 54, 54, 0.8);
+  color: rgba(52, 52, 52, 0.8);
   font-weight: 500;
   text-decoration: none;
   margin: 5px 0;
@@ -48,7 +48,6 @@ export const SubmitButton = styled.button`
   border-radius: 100px 100px 100px 100px;
   cursor: pointer;
   transition: all, 240ms ease-in-out;
-  background: rgb(241, 196, 15);
   background: linear-gradient(
     58deg,
     ${({ theme }) => theme.colors.primary} 20%,
@@ -56,5 +55,8 @@ export const SubmitButton = styled.button`
   );
   &:hover {
     filter: brightness(1.03);
+  }
+  &:focus {
+    outline: none;
   }
 `;

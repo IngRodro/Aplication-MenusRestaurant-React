@@ -30,6 +30,7 @@ export const BackDrop = styled(motion.div)`
   top: -300px;
   left: -100px;
   background: ${({ theme }) => theme.colors.primary};
+  z-index: ${({ theme }) => theme.zIndex.five};
 `;
 
 export const HeaderContainer = styled.div`

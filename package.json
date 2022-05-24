@@ -10,7 +10,10 @@
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
-    "styled-icons": "^10.45.0"
+    "styled-icons": "^10.45.0",
+    "sweetalert2": "^11.4.15",
+    "sweetalert2-react-content": "^5.0.0",
+    "universal-cookie": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
