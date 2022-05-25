@@ -39,19 +39,10 @@ const SignInForm = () => {
         confirmButtonText: 'Ok',
       });
     } else {
-      const usernameValidate = Username.match(/^[a-zA-Z0-9]+$/);
-      const passwordValidate = Password.match(/^[A-Za-z0-9@$!%*?&]$/);
       if (Username === '' || Password === '') {
         await MySwal.fire({
           title: 'Error',
           text: 'Please fill all the fields',
-          icon: 'error',
-          confirmButtonText: 'Ok',
-        });
-      } else if (!usernameValidate || !passwordValidate) {
-        await MySwal.fire({
-          title: 'Error',
-          text: 'Username and password need to contain alphanumeric characters',
           icon: 'error',
           confirmButtonText: 'Ok',
         });

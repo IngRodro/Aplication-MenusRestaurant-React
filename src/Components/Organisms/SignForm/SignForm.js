@@ -7,9 +7,9 @@ import {
   TopContainer,
   BackDrop,
 } from './style';
-import SignIn from '../../components/Organisms/Sign/SignIn';
-import SignUp from '../../components/Organisms/Sign/SignUp';
-import { AppSignProvider, useAppSign } from '../../Context/signContext';
+import SignIn from '../../Molecules/Sign/SignIn';
+import SignUp from '../../Molecules/Sign/SignUp';
+import { AppSignProvider, useAppSign } from '../../../Context/signContext';
 
 const SignForm = () => {
   console.log();

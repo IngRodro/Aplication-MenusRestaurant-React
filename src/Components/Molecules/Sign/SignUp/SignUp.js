@@ -6,7 +6,7 @@ import {
   MutedLink,
   SubmitButton,
 } from '../style';
-import Input from '../../../../components/Atoms/Input';
+import Input from '../../../Atoms/Input';
 import Swal from 'sweetalert2';
 import { SignContext } from '../../../../Context/signContext';
 import withReactContent from 'sweetalert2-react-content';

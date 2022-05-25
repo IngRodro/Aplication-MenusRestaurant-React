@@ -5,7 +5,7 @@ const Button = ({
   className,
   onClick,
   color = 'primary',
-  labelColor = 'back',
+  labelColor = 'buttonText',
   ...restProps
 }) => {
   return (
