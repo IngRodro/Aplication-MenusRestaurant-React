@@ -10,7 +10,7 @@ export const StyleMenuNavbar = styled.div`
 `;
 
 export const StyleMenuItem = styled(Button)`
-  padding: ${({ $type }) => ($type === 'PageItem' ? '0 20' : '0')}px;
+  padding: ${({ $type }) => ($type === 'PageItem' ? '0 20px' : '0')};
   margin-right: 10px;
   min-width: auto;
   transition: color 0.3s;

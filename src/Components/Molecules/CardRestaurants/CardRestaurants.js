@@ -1,9 +1,9 @@
 import Title from 'components/Atoms/Title';
 import { StyleImage, StyleWrapper } from './style';
 
-const CardRestaurant = ({ image, name }) => {
+const CardRestaurant = ({ image, name, action }) => {
   return (
-    <StyleWrapper>
+    <StyleWrapper onClick={action}>
       <StyleImage loading="lazy" src={image} />
       <Title>{name}</Title>
     </StyleWrapper>

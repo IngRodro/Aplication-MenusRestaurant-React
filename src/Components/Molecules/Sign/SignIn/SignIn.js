@@ -2,7 +2,6 @@ import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import React, { useContext, useState } from 'react';
 import Cookies from 'universal-cookie';
-
 import {
   BoldLink,
   BoxContainer,
@@ -13,8 +12,10 @@ import {
 import Input from '../../../Atoms/Input';
 import { SignContext } from '../../../../Context/signContext';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
+  const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
   const { ChangeSignForm } = useContext(SignContext);
   const [Username, setUsername] = useState('');
@@ -23,6 +24,18 @@ const SignInForm = () => {
   const onChangeUserName = (e) => {
     setUsername(e.target.value);
   };
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   const onChangePassword = (e) => {
     setPassword(e.target.value);
@@ -57,16 +70,15 @@ const SignInForm = () => {
           })
           .then(
             async (response) => {
-              await MySwal.fire({
-                title: 'Success',
-                text: 'You are now logged in',
+              await Toast.fire({
                 icon: 'success',
-                confirmButtonText: 'Ok',
+                title: 'Login Successful',
               });
               cookies.set('token', response.headers['auth-token'], {
                 path: '/',
                 maxAge: 86400,
               });
+              navigate('/restaurants');
             },
             async (error) => {
               await MySwal.fire({
