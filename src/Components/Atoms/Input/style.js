@@ -14,6 +14,7 @@ export const StyleInput = styled.input`
   border-radius: 2px;
   padding: 10px;
   margin: 10px 0 0 0;
+  display: ${({ $display }) => $display};
   &:focus {
     margin-bottom: 7px;
     border-bottom: 3px solid ${({ theme }) => theme.colors.primary};

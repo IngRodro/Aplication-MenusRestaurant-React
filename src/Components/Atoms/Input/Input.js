@@ -11,8 +11,10 @@ const Input = ({
   disabled,
   required,
   className,
+  display,
   ...props
 }) => {
+  console.log(display);
   return (
     <StyleInput
       type={type}
@@ -21,6 +23,7 @@ const Input = ({
       value={value}
       onChange={onChange}
       onBlur={onBlur}
+      $display={display}
       onFocus={onFocus}
       disabled={disabled}
       required={required}

@@ -1,7 +1,5 @@
-import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import React, { useContext, useState } from 'react';
-import Cookies from 'universal-cookie';
 import {
   BoldLink,
   BoxContainer,
@@ -9,14 +7,15 @@ import {
   MutedLink,
   SubmitButton,
 } from '../style';
-import Input from '../../../Atoms/Input';
-import { SignContext } from '../../../../Context/signContext';
+import Input from 'components/Atoms/Input';
+import useAuth from 'hooks/useAuth';
+import { SignContext } from 'Context/signContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
+  const { checkAuth, saveAuth } = useAuth();
   const navigate = useNavigate();
-  const MySwal = withReactContent(Swal);
   const { ChangeSignForm } = useContext(SignContext);
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
@@ -43,9 +42,8 @@ const SignInForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const cookies = new Cookies();
-    if (cookies.get('token')) {
-      await MySwal.fire({
+    if (checkAuth().isAuthenticated) {
+      await Swal.fire({
         title: 'You are already logged in',
         text: 'Please logout first',
         icon: 'error',
@@ -53,7 +51,7 @@ const SignInForm = () => {
       });
     } else {
       if (Username === '' || Password === '') {
-        await MySwal.fire({
+        await Swal.fire({
           title: 'Error',
           text: 'Please fill all the fields',
           icon: 'error',
@@ -70,18 +68,16 @@ const SignInForm = () => {
           })
           .then(
             async (response) => {
-              await Toast.fire({
+              Toast.fire({
                 icon: 'success',
                 title: 'Login Successful',
+                position: 'bottom-end',
               });
-              cookies.set('token', response.headers['auth-token'], {
-                path: '/',
-                maxAge: 86400,
-              });
+              saveAuth(response.headers['auth-token']);
               navigate('/restaurants');
             },
             async (error) => {
-              await MySwal.fire({
+              await Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Username or Password is incorrect!',

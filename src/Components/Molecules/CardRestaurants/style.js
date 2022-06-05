@@ -13,6 +13,13 @@ export const StyleWrapper = styled.div`
   }
 `;
 
+export const ActionWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+`;
+
 export const StyleImage = styled.img`
   border-radius: 12px;
   width: 100%;

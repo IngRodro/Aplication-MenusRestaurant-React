@@ -4,14 +4,22 @@ import {
   StyleBody,
   StyleCloseBtn,
   StyleCloseIcon,
+  StyleFooter,
 } from './style';
-import Title from '../Title';
+import Title from 'components/Atoms/Title';
+import Button from '../Button';
 
 const Modal = ({
   isOpen,
   children,
   onCancel,
   title,
+  okText = 'Ok',
+  okProps = {},
+  cancelText = 'Cancel',
+  cancelProps = {
+    onClick: onCancel,
+  },
   width = 350,
   contentStyle = customStyles.content,
   closeButton = true,
@@ -36,10 +44,19 @@ const Modal = ({
             color="transparent"
             onClick={onCancel}
           >
-            <StyleCloseIcon size={24} />
+            <StyleCloseIcon />
           </StyleCloseBtn>
         )}
         {children}
+
+        <StyleFooter>
+          {cancelText && (
+            <Button color="error" labelColor="text" {...cancelProps}>
+              {cancelText}
+            </Button>
+          )}
+          <Button {...okProps}>{okText}</Button>
+        </StyleFooter>
       </StyleBody>
     </LibModal>
   );

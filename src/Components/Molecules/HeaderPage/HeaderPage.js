@@ -11,7 +11,7 @@ const HeaderPage = ({ title, onRefresh, onAdd }) => {
 
       <StyleActions>
         {onRefresh && (
-          <Button color="success" labelColor="white" onClick={onRefresh}>
+          <Button color="info" labelColor="white" onClick={onRefresh}>
             <StyleRefreshIcon size={40} />
           </Button>
         )}

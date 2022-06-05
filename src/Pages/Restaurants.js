@@ -16,14 +16,18 @@ function Restaurants() {
 
   return (
     <Layout>
-      <HeaderPage title="Products" onRefresh={refresh} />
+      <HeaderPage
+        title="Restaurants"
+        onRefresh={refresh}
+        onAdd={() => console.log('')}
+      />
       {loading ? (
         <p>
           <b>Loading...</b>
         </p>
       ) : (
         <Row>
-          {data.restaurants?.map(({ id, name, image }) => (
+          {data?.map(({ id, name, image }) => (
             <Col key={id} xs={12} md={6} lg={4}>
               <CardRestaurants
                 name={name}

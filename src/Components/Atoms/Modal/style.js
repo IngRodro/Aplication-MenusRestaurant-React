@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../Button';
-import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline';
+import { CloseOutline } from '@styled-icons/evaicons-outline';
 
 export const StyleBody = styled.div`
   position: relative;
@@ -8,6 +8,13 @@ export const StyleBody = styled.div`
   width: 100%;
   min-width: 350px;
   padding: 20px;
+`;
+
+export const StyleFooter = styled.div`
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const StyleCloseBtn = styled(Button)`

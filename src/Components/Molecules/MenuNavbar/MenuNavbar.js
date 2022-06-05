@@ -6,15 +6,28 @@ import {
 } from './style';
 import { useAppTheme } from '../../../Context/themeContext';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+import Swal from 'sweetalert2';
+import useAuth from 'hooks/useAuth';
 
 const MenuNavbar = () => {
+  const { removeAuth } = useAuth();
   const navigate = useNavigate();
   const { themeToggle } = useAppTheme();
-  const RemoveCookie = () => {
-    cookies.remove('token');
-    navigate('/sign');
+  const closeSession = async () => {
+    removeAuth();
+    let timerInterval;
+    await Swal.fire({
+      title: 'Closing session',
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    });
+    navigate('/');
   };
 
   const ChangeLocation = (path) => {
@@ -33,7 +46,7 @@ const MenuNavbar = () => {
         color="transparent"
         labelColor="text"
         $type={'PageItem'}
-        onClick={() => ChangeLocation('/products?page=1&size=10')}
+        onClick={() => ChangeLocation('/products?page=1')}
       >
         Products
       </StyleMenuItem>
@@ -49,7 +62,7 @@ const MenuNavbar = () => {
         color="transparent"
         labelColor="text"
         $type={'ActionItem'}
-        onClick={RemoveCookie}
+        onClick={closeSession}
       >
         <StyleCloseSessionIcon size={24} />
       </StyleMenuItem>

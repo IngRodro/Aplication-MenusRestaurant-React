@@ -1,17 +1,17 @@
 import axios from 'axios';
+import config from 'config';
 import { useCallback, useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+import useAuth from './useAuth';
 
-const baseUrl = `${process.env.REACT_APP_API_URL}/v1`;
+const { baseUrl } = config;
 
 const useQuery = (url, paramPage) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [errors, setErrors] = useState(null);
+  const { token } = useAuth().checkAuth();
 
   const getData = useCallback(async () => {
-    const token = cookies.get('token');
     setLoading(true);
     try {
       const { data } = await axios.get(`${baseUrl}${url}`, {
@@ -27,7 +27,7 @@ const useQuery = (url, paramPage) => {
       setLoading(false);
       throw new Error(err);
     }
-  }, [url, paramPage]);
+  }, [url, paramPage, token]);
 
   useEffect(() => {
     getData().then();
