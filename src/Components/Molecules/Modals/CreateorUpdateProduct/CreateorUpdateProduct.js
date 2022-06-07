@@ -95,7 +95,6 @@ const AddProductModal = ({
           type="file"
           onChange={ChangeImage}
           accept="image/*"
-          required
         />
       </form>
       <H2>Image</H2>

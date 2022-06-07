@@ -14,7 +14,6 @@ const Input = ({
   display,
   ...props
 }) => {
-  console.log(display);
   return (
     <StyleInput
       type={type}

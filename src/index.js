@@ -10,6 +10,7 @@ import { themeLight, themeDark } from './styles/theme';
 import { AppThemeProvider, useAppTheme } from './Context/themeContext';
 import Restaurants from './pages/Restaurants';
 import useAuth from './hooks/useAuth';
+import Menus from './pages/Menus';
 
 const AppRenderTheme = memo(() => {
   const { checkAuth } = useAuth();
@@ -30,6 +31,7 @@ const AppRenderTheme = memo(() => {
             )
           }
         />
+        <Route path={`/menu/:id`} element={<Menus />} />
         <Route
           path="*"
           element={

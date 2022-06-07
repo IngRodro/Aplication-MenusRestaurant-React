@@ -5,6 +5,7 @@ import {
   StyleCloseBtn,
   StyleCloseIcon,
   StyleFooter,
+  ScrollContainer,
 } from './style';
 import Title from 'components/Atoms/Title';
 import Button from '../Button';
@@ -47,7 +48,7 @@ const Modal = ({
             <StyleCloseIcon />
           </StyleCloseBtn>
         )}
-        {children}
+        <ScrollContainer>{children}</ScrollContainer>
 
         <StyleFooter>
           {cancelText && (

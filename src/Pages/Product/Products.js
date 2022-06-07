@@ -1,16 +1,16 @@
 import Layout from 'components/Organisms/Layout';
-import CardRestaurants from 'components/Molecules/CardRestaurants';
+import CardRestaurants from 'components/Molecules/Cards/CardProducts';
 import { Col, Row } from 'react-grid-system';
 import useQuery from 'hooks/useQuery';
 import HeaderPage from 'components/Molecules/HeaderPage';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import useAuth from 'hooks/useAuth';
 import { useState } from 'react';
 import { PaginationContainer, StyledPagination } from './style';
-import CreateorUpdateProduct from 'components/Molecules/Modals/CreateorUpdateProduct';
+import CreateorUpdateProduct from 'components/Molecules/Modals/CreateorUpdateProduct/CreateorUpdateProduct';
 import useModal from 'hooks/useModal';
+import useMutation from '../../hooks/useMutation';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -24,8 +24,6 @@ const Toast = Swal.mixin({
   },
 });
 
-const baseUrl = `${process.env.REACT_APP_API_URL}/v1`;
-
 function Products() {
   const { visible, onToggle } = useModal();
   const [searchParams] = useSearchParams();
@@ -35,6 +33,18 @@ function Products() {
   const paramPage = searchParams.get('page');
   const navigate = useNavigate();
   const { data, loading, refresh } = useQuery(`/products`, paramPage);
+  const [DeleteProduct, { loading: loadingAddOrUpdatePet }] = useMutation(
+    `/products`,
+    {
+      method: 'delete',
+      refresh: async () => {
+        await refresh();
+      },
+      headers: {
+        'auth-token': token,
+      },
+    }
+  );
 
   const onEdit = (prod) => {
     onVisible();
@@ -59,12 +69,12 @@ function Products() {
       reverseButtons: true,
     }).then(async (result) => {
       if (result.value) {
-        await axios.delete(`${baseUrl}/products/${id}`, {
-          headers: {
-            'auth-token': token,
-          },
+        await DeleteProduct({ idDelete: id });
+        await Toast.fire({
+          icon: 'success',
+          title: 'Product deleted',
+          position: 'bottom-end',
         });
-        await refresh();
       }
     });
   };

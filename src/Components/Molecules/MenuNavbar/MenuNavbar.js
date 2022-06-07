@@ -27,12 +27,9 @@ const MenuNavbar = () => {
         clearInterval(timerInterval);
       },
     });
-    navigate('/');
+    navigate('/sign', { replace: true });
   };
 
-  const ChangeLocation = (path) => {
-    navigate(path);
-  };
   return (
     <StyleMenuNavbar>
       <StyleMenuItem
@@ -46,7 +43,7 @@ const MenuNavbar = () => {
         color="transparent"
         labelColor="text"
         $type={'PageItem'}
-        onClick={() => ChangeLocation('/products?page=1')}
+        onClick={() => navigate('/products?page=1', { replace: true })}
       >
         Products
       </StyleMenuItem>
@@ -54,7 +51,7 @@ const MenuNavbar = () => {
         color="transparent"
         labelColor="text"
         $type={'PageItem'}
-        onClick={() => ChangeLocation('/restaurants')}
+        onClick={() => navigate('/restaurants', { replace: true })}
       >
         Restaurants
       </StyleMenuItem>

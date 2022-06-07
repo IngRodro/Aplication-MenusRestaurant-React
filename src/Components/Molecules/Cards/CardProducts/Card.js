@@ -9,6 +9,7 @@ const CardRestaurant = ({
   isActionButtons,
   onDelete,
   onUpdate,
+  onWatchMenu,
 }) => {
   return (
     <StyleWrapper onClick={action}>
@@ -16,12 +17,21 @@ const CardRestaurant = ({
       <Title>{name}</Title>
       {isActionButtons && (
         <ActionWrapper>
-          <Button color={'success'} onClick={() => onUpdate()}>
-            Update
-          </Button>
-          <Button color={'error'} onClick={() => onDelete()}>
-            Delete
-          </Button>
+          {onWatchMenu && (
+            <Button color={'info'} onClick={onWatchMenu}>
+              Watch Menu
+            </Button>
+          )}
+          {onUpdate && (
+            <Button color={'success'} onClick={() => onUpdate()}>
+              Update
+            </Button>
+          )}
+          {onDelete && (
+            <Button color={'error'} onClick={() => onDelete()}>
+              Delete
+            </Button>
+          )}
         </ActionWrapper>
       )}
     </StyleWrapper>

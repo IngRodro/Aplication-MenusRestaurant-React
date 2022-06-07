@@ -74,7 +74,7 @@ const SignInForm = () => {
                 position: 'bottom-end',
               });
               saveAuth(response.headers['auth-token']);
-              navigate('/restaurants');
+              navigate('/restaurants', { replace: true });
             },
             async (error) => {
               await Swal.fire({

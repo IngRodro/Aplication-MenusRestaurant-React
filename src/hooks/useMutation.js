@@ -10,6 +10,7 @@ const defaultOptions = {
   data: null,
   headers: {},
   refresh: null,
+  idDelete: null,
 };
 
 const useMutation = (url, opts = defaultOptions) => {
@@ -28,16 +29,13 @@ const useMutation = (url, opts = defaultOptions) => {
         ...optsFunc,
       };
 
-      const headers = options.headers;
-
-      console.log(options);
       setLoading(true);
 
       try {
         const { data } = await axios[options.method](
-          `${baseUrl}${url}`,
+          `${baseUrl}${url}${options?.idDelete ? `/${options.idDelete}` : ''}`,
           options.data,
-          { headers }
+          { headers: options.headers }
         );
         setData(data);
         setLoading(false);
