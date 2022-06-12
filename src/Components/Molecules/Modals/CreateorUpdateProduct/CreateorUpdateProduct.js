@@ -16,9 +16,8 @@ const AddProductModal = ({
   const [urlImage, setUrlImage] = useState(
     'https://res.cloudinary.com/project-tpis/image/upload/v1654393909/assets/select-image-260nw-520051081_gzcreb.png'
   );
-  const [createOrUpdatePet, { loading: loadingAddOrUpdatePet }] = useMutation(
-    isUpdate ? `/products/${product?.id}` : '/products',
-    {
+  const [createOrUpdateProduct, { loading: loadingAddOrUpdateProduct }] =
+    useMutation(isUpdate ? `/products/${product?.id}` : '/products', {
       method: isUpdate ? 'put' : 'post', // post = create, put = update
       refresh: async () => {
         onCancel();
@@ -28,8 +27,7 @@ const AddProductModal = ({
         'Content-Type': 'multipart/form-data',
         'auth-token': token,
       },
-    }
-  );
+    });
 
   useEffect(() => {
     if (isUpdate) {
@@ -48,7 +46,7 @@ const AddProductModal = ({
     let bodyFormData = new FormData();
     bodyFormData.append('name', name);
     bodyFormData.append('image', image);
-    await createOrUpdatePet({
+    await createOrUpdateProduct({
       data: bodyFormData,
     });
     setUrlImage(
@@ -72,12 +70,12 @@ const AddProductModal = ({
           'https://res.cloudinary.com/project-tpis/image/upload/v1654393909/assets/select-image-260nw-520051081_gzcreb.png'
         );
       }}
-      title={isUpdate ? 'Edit Pet' : 'Add Pet'}
+      title={isUpdate ? 'Edit Product' : 'Add Product'}
       okText={isUpdate ? 'Edit' : 'Save'}
       okProps={{
         type: 'submit',
         form: 'form-product',
-        loading: loadingAddOrUpdatePet,
+        loading: loadingAddOrUpdateProduct,
       }}
     >
       <form id="form-product" method="POST" onSubmit={onSubmit}>

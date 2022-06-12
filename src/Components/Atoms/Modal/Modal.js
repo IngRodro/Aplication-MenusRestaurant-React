@@ -38,7 +38,11 @@ const Modal = ({
           maxWidth: width,
         }}
       >
-        {title && <Title size={27}>{title}</Title>}
+        {title && (
+          <Title size={27} color={'textModal'}>
+            {title}
+          </Title>
+        )}
         {closeButton && (
           <StyleCloseBtn
             labelColor="text"

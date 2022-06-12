@@ -33,7 +33,7 @@ function Products() {
   const paramPage = searchParams.get('page');
   const navigate = useNavigate();
   const { data, loading, refresh } = useQuery(`/products`, paramPage);
-  const [DeleteProduct, { loading: loadingAddOrUpdatePet }] = useMutation(
+  const [DeleteProduct, { loading: loadingDeleteProduct }] = useMutation(
     `/products`,
     {
       method: 'delete',

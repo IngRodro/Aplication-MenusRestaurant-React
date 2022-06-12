@@ -14,6 +14,7 @@ const colorsLight = {
   transparent: 'transparent',
   background: '#ffffff',
   backgroundInput: '#127dff',
+  textModal: '#000000',
   buttonText: '#ffffff',
   placeholder: '#767676',
   inputText: '#000000',

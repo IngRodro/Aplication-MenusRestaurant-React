@@ -29,13 +29,21 @@ const useMutation = (url, opts = defaultOptions) => {
         ...optsFunc,
       };
 
-      setLoading(true);
+      const config =
+        options.method === 'delete'
+          ? [
+              {
+                data: options.variables || options.data,
+                headers: options.headers,
+              },
+            ]
+          : [options.variables || options.data, { headers: options.headers }];
 
+      console.log('options', options);
       try {
         const { data } = await axios[options.method](
           `${baseUrl}${url}${options?.idDelete ? `/${options.idDelete}` : ''}`,
-          options.data,
-          { headers: options.headers }
+          ...config
         );
         setData(data);
         setLoading(false);

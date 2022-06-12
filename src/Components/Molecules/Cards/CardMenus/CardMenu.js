@@ -28,7 +28,13 @@ const CardMenu = ({
       {!isImage && (
         <ImagesWrapper>
           {products.map(({ product }) => {
-            return <StyleImage loading="lazy" src={product.image.secure_url} />;
+            return (
+              <StyleImage
+                key={product.id}
+                loading="lazy"
+                src={product.image.secure_url}
+              />
+            );
           })}
         </ImagesWrapper>
       )}

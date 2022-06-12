@@ -13,7 +13,7 @@ export const StyleInput = styled.input`
   cursor: text;
   border-radius: 2px;
   padding: 10px;
-  margin: 10px 0 0 0;
+  margin: 0 0 10px 0;
   display: ${({ $display }) => $display};
   &:focus {
     margin-bottom: 7px;

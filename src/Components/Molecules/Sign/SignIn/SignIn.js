@@ -60,9 +60,6 @@ const SignInForm = () => {
       } else {
         axios
           .post('http://localhost:8080/v1/users/login/', {
-            headers: {
-              'Content-Type': 'application/json',
-            },
             username: Username,
             password: Password,
           })
