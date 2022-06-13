@@ -1,11 +1,11 @@
 import Modal from 'components/Atoms/Modal';
-import Input from 'components/Atoms/Input';
-import useAuth from 'hooks/useAuth';
+import { useAuth } from 'Context/AuthContext';
+import Input from '../../../Atoms/Input';
 import useMutation from 'hooks/useMutation';
 import { useEffect, useState } from 'react';
 import { ShowProductsModal } from '../ShowProducts';
 import useModal from 'hooks/useModal';
-import { AddButton, Text } from './style';
+import { AddButton, Text, DeleteIcon, InputStyled } from './style';
 import { Add } from '@styled-icons/fluentui-system-filled/Add';
 
 const AddMenuOptionModal = ({
@@ -15,10 +15,12 @@ const AddMenuOptionModal = ({
   isUpdate = false,
   menu = null,
   idRestaurant,
+  isCloseModal = false,
+  setIsCloseModal,
 }) => {
   const { visible, onToggle } = useModal();
   const [products, setProducts] = useState(menu?.products || []);
-  const { token } = useAuth().checkAuth();
+  const { token } = useAuth();
 
   const [createOrUpdateMenus, { loading: loadingAddOrUpdateMenu }] =
     useMutation(isUpdate ? `/menu/${menu?.id}` : '/menu', {
@@ -47,8 +49,7 @@ const AddMenuOptionModal = ({
     } else {
       setProducts([]);
     }
-    console.log(products);
-  }, [isUpdate, menu]);
+  }, [isUpdate, menu, isCloseModal]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -87,6 +88,7 @@ const AddMenuOptionModal = ({
       onCancel={() => {
         setProducts([]);
         onCancel();
+        setIsCloseModal(true);
       }}
       title={isUpdate ? 'Edit Menu' : 'Add Menu'}
       okText={isUpdate ? 'Edit' : 'Save'}
@@ -117,11 +119,16 @@ const AddMenuOptionModal = ({
           products.map((prod) => (
             <div key={menu ? menu.id + prod.id : prod.id}>
               <Text>{prod.name}</Text>
-              <Input
+              <InputStyled
                 type={'number'}
                 placeholder={'quantity'}
                 defaultValue={prod.quantity}
                 onChange={(e) => onChangeQuantity(e, prod)}
+              />
+              <DeleteIcon
+                onClick={() =>
+                  setProducts(products.filter((p) => p.id !== prod.id))
+                }
               />
             </div>
           ))}

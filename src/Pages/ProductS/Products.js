@@ -5,9 +5,9 @@ import useQuery from 'hooks/useQuery';
 import HeaderPage from 'components/Molecules/HeaderPage';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import useAuth from 'hooks/useAuth';
-import { useState } from 'react';
-import { PaginationContainer, StyledPagination } from './style';
+import { useAuth } from 'Context/AuthContext';
+import { useEffect, useState } from 'react';
+import { PaginationContainer, StyledPagination } from '../style';
 import CreateorUpdateProduct from 'components/Molecules/Modals/CreateorUpdateProduct/CreateorUpdateProduct';
 import useModal from 'hooks/useModal';
 import useMutation from '../../hooks/useMutation';
@@ -28,23 +28,21 @@ function Products() {
   const { visible, onToggle } = useModal();
   const [searchParams] = useSearchParams();
   const [productEdit, setProductEdit] = useState(null);
+  const [totalPages, setTotalPages] = useState(0);
   const { visible: isUpdate, onHidden, onVisible } = useModal();
-  const { token } = useAuth().checkAuth();
+  const { token } = useAuth();
   const paramPage = searchParams.get('page');
   const navigate = useNavigate();
   const { data, loading, refresh } = useQuery(`/products`, paramPage);
-  const [DeleteProduct, { loading: loadingDeleteProduct }] = useMutation(
-    `/products`,
-    {
-      method: 'delete',
-      refresh: async () => {
-        await refresh();
-      },
-      headers: {
-        'auth-token': token,
-      },
-    }
-  );
+  const [DeleteProduct] = useMutation(`/products`, {
+    method: 'delete',
+    refresh: async () => {
+      await refresh();
+    },
+    headers: {
+      'auth-token': token,
+    },
+  });
 
   const onEdit = (prod) => {
     onVisible();
@@ -70,16 +68,19 @@ function Products() {
     }).then(async (result) => {
       if (result.value) {
         await DeleteProduct({ idDelete: id });
+        await refresh();
         await Toast.fire({
           icon: 'success',
-          title: 'Product deleted',
+          title: 'Products deleted',
           position: 'bottom-end',
         });
       }
     });
   };
 
-  let totalPages = data?.totalPages || 1;
+  useEffect(() => {
+    setTotalPages(data?.totalPages);
+  }, [data?.totalPages]);
 
   return (
     <Layout>

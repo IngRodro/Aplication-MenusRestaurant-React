@@ -7,14 +7,13 @@ import {
 import { useAppTheme } from '../../../Context/themeContext';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import useAuth from 'hooks/useAuth';
+import { useAuth } from 'Context/AuthContext';
 
 const MenuNavbar = () => {
-  const { removeAuth } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
   const { themeToggle } = useAppTheme();
   const closeSession = async () => {
-    removeAuth();
     let timerInterval;
     await Swal.fire({
       title: 'Closing session',
@@ -27,7 +26,7 @@ const MenuNavbar = () => {
         clearInterval(timerInterval);
       },
     });
-    navigate('/sign', { replace: true });
+    logout();
   };
 
   return (

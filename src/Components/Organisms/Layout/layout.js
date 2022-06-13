@@ -2,10 +2,10 @@ import { Container } from 'react-grid-system';
 
 import Navbar from 'components/Organisms/Navbar';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, navbar = true }) => {
   return (
     <div className="App">
-      <Navbar />
+      {navbar && <Navbar />}
       <Container>{children}</Container>
     </div>
   );

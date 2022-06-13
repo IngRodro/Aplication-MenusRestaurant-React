@@ -1,6 +1,6 @@
 import Modal from 'components/Atoms/Modal';
 import Input from 'components/Atoms/Input';
-import useAuth from 'hooks/useAuth';
+import { useAuth } from 'Context/AuthContext';
 import useMutation from 'hooks/useMutation';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ const AddProductModal = ({
   isUpdate = false,
   product = null,
 }) => {
-  const { token } = useAuth().checkAuth();
+  const { token } = useAuth();
   const [urlImage, setUrlImage] = useState(
     'https://res.cloudinary.com/project-tpis/image/upload/v1654393909/assets/select-image-260nw-520051081_gzcreb.png'
   );
@@ -47,7 +47,7 @@ const AddProductModal = ({
     bodyFormData.append('name', name);
     bodyFormData.append('image', image);
     await createOrUpdateProduct({
-      data: bodyFormData,
+      variables: bodyFormData,
     });
     setUrlImage(
       'https://res.cloudinary.com/project-tpis/image/upload/v1654393909/assets/select-image-260nw-520051081_gzcreb.png'
@@ -70,7 +70,7 @@ const AddProductModal = ({
           'https://res.cloudinary.com/project-tpis/image/upload/v1654393909/assets/select-image-260nw-520051081_gzcreb.png'
         );
       }}
-      title={isUpdate ? 'Edit Product' : 'Add Product'}
+      title={isUpdate ? 'Edit Products' : 'Add Products'}
       okText={isUpdate ? 'Edit' : 'Save'}
       okProps={{
         type: 'submit',

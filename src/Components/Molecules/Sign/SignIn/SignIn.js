@@ -8,14 +8,11 @@ import {
   SubmitButton,
 } from '../style';
 import Input from 'components/Atoms/Input';
-import useAuth from 'hooks/useAuth';
+import { useAuth } from 'Context/AuthContext';
 import { SignContext } from 'Context/signContext';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
-  const { checkAuth, saveAuth } = useAuth();
-  const navigate = useNavigate();
+  const { isAuthenticated, login } = useAuth();
   const { ChangeSignForm } = useContext(SignContext);
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
@@ -24,25 +21,13 @@ const SignInForm = () => {
     setUsername(e.target.value);
   };
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
-    },
-  });
-
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (checkAuth().isAuthenticated) {
+    if (isAuthenticated) {
       await Swal.fire({
         title: 'You are already logged in',
         text: 'Please logout first',
@@ -58,29 +43,7 @@ const SignInForm = () => {
           confirmButtonText: 'Ok',
         });
       } else {
-        axios
-          .post('http://localhost:8080/v1/users/login/', {
-            username: Username,
-            password: Password,
-          })
-          .then(
-            async (response) => {
-              Toast.fire({
-                icon: 'success',
-                title: 'Login Successful',
-                position: 'bottom-end',
-              });
-              saveAuth(response.headers['auth-token']);
-              navigate('/restaurants', { replace: true });
-            },
-            async (error) => {
-              await Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Username or Password is incorrect!',
-              });
-            }
-          );
+        await login(Username, Password);
       }
     }
   };

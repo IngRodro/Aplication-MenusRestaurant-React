@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export const BoxContainer = styled.div`
   width: 360px;
   min-height: 550px;
-  margin: 50px auto;
+  margin: 100px auto;
   display: flex;
   flex-direction: column;
   border-radius: 19px;

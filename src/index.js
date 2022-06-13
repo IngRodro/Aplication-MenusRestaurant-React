@@ -1,48 +1,17 @@
 import React, { memo } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
-
-import Products from './pages/Product/Products';
 import GlobalStyle from './styles/global';
-import SignPage from './pages/SignPage';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Routes from 'routes';
 import { themeLight, themeDark } from './styles/theme';
 import { AppThemeProvider, useAppTheme } from './Context/themeContext';
-import Restaurants from './pages/Restaurants';
-import useAuth from './hooks/useAuth';
-import Menus from './pages/Menus';
 
 const AppRenderTheme = memo(() => {
-  const { checkAuth } = useAuth();
   const { theme } = useAppTheme();
   return (
     <ThemeProvider theme={theme === 'light' ? themeLight : themeDark}>
       <GlobalStyle />
-      <Routes>
-        <Route path="/restaurants" element={<Restaurants />} />
-        <Route path="/products" element={<Products />} />
-        <Route
-          path="/"
-          element={
-            checkAuth().isAuthenticated ? (
-              <Navigate to="/restaurants" replace={true} />
-            ) : (
-              <SignPage />
-            )
-          }
-        />
-        <Route path={`/menu/:id`} element={<Menus />} />
-        <Route
-          path="*"
-          element={
-            checkAuth().isAuthenticated ? (
-              <Navigate to="/restaurants" replace={true} />
-            ) : (
-              <Navigate exact to="/" replace={true} />
-            )
-          }
-        />
-      </Routes>
+      <Routes />
     </ThemeProvider>
   );
 });
@@ -58,8 +27,6 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <App />
   </React.StrictMode>
 );
