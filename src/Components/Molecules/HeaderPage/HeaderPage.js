@@ -1,14 +1,19 @@
 import Title from 'components/Atoms/Title';
 import Button from 'components/Atoms/Button';
-import { StyleActions, StyleWrapper, StyleRefreshIcon } from './style';
+import {
+  StyleActions,
+  StyleWrapper,
+  StyleRefreshIcon,
+  StyledChildWrapper,
+} from './style';
 
-const HeaderPage = ({ title, onRefresh, onAdd }) => {
+const HeaderPage = ({ title, onRefresh, child, onAdd }) => {
   return (
     <StyleWrapper>
       <Title htmlTag="h1" size={75} lineHeight={75}>
         {title}
       </Title>
-
+      <StyledChildWrapper>{child}</StyledChildWrapper>
       <StyleActions>
         {onRefresh && (
           <Button color="info" labelColor="white" onClick={onRefresh}>

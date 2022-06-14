@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Button from '../../Atoms/Button';
 import { DarkTheme } from '@styled-icons/fluentui-system-regular/DarkTheme';
 import { DoorArrowLeft } from '@styled-icons/fluentui-system-regular/DoorArrowLeft';
+import { LogIn } from '@styled-icons/boxicons-regular/LogIn';
 
 export const StyleMenuNavbar = styled.div`
   width: auto;
@@ -38,5 +39,13 @@ export const StyleCloseSessionIcon = styled(DoorArrowLeft)`
 
   &:hover {
     color: ${({ theme }) => theme.colors.error};
+  }
+`;
+
+export const StyleLogInIcon = styled(LogIn)`
+  color: ${({ theme }) => theme.colors.text};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.success};
   }
 `;

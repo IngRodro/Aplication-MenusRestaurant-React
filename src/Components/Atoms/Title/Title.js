@@ -6,6 +6,7 @@ const Title = ({
   color = 'text',
   size = 45,
   lineHeight = size + 20,
+  button = false,
   ...restProps
 }) => {
   return (
@@ -14,6 +15,7 @@ const Title = ({
       $size={size}
       $color={color}
       $lineHeight={lineHeight}
+      $button={button}
       {...restProps}
     >
       {children}

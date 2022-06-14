@@ -6,10 +6,12 @@ import {
   ImagesWrapper,
 } from './style';
 import Button from 'components/Atoms/Button';
+import Text from '../../../Atoms/Text';
 
 const CardMenu = ({
   products,
   name,
+  price,
   action,
   isActionButtons,
   onDelete,
@@ -39,6 +41,9 @@ const CardMenu = ({
         </ImagesWrapper>
       )}
       <Title>{name}</Title>
+      <Text size={22}>
+        <strong style={{ fontSize: '22px' }}>Price:</strong> ${price.toFixed(2)}
+      </Text>
       {isActionButtons && (
         <ActionWrapper>
           {onUpdate && (

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const StyleSelect = styled(ReactSelect)`
   margin-bottom: 20px;
+  margin-right: 20px;
 
   .react-select__control {
     min-height: 45px;

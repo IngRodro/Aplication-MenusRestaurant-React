@@ -3,7 +3,7 @@ import { Col, Row } from 'react-grid-system';
 import useQuery from '../../hooks/useQuery';
 import HeaderPage from '../../components/Molecules/HeaderPage';
 import Card from '../../components/Molecules/Cards/CardProducts';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import dataJson from 'data/data.json';
 import { useEffect, useMemo, useState } from 'react';
 import Select from '../../components/Atoms/Select';
@@ -11,14 +11,14 @@ import { PaginationContainer, StyledPagination } from '../style';
 
 function RestaurantsHome() {
   const [page, setPage] = useState(1);
-  const [department, setDepartment] = useState('San Salvador');
-  const [municipality, setMunicipality] = useState('San Salvador');
+  const [department, setDepartment] = useState('');
+  const [municipality, setMunicipality] = useState('');
   const [totalPages, setTotalPages] = useState(0);
   const { data, loading, refresh } = useQuery(
     '/restaurants/',
     page,
-    department,
-    municipality,
+    department === 'Seleccione un departamento' ? '' : department,
+    municipality === 'Seleccione un municipio' ? '' : municipality,
     true
   );
   const navigate = useNavigate();
@@ -52,6 +52,7 @@ function RestaurantsHome() {
 
   const onchangeDepartment = async (e) => {
     setDepartment(e.value);
+    setMunicipality('');
   };
 
   const onchangeMunicipality = async (e) => {
@@ -63,32 +64,32 @@ function RestaurantsHome() {
 
   return (
     <Layout>
-      <HeaderPage title="Restaurants" onRefresh={refresh} />
-      <div
-        className="container-select"
-        style={{
-          textAlign: 'left',
-          display: 'inline-block',
-          marginRight: '15px',
-        }}
-      >
-        <Select
-          required
-          type="text"
-          name="Department"
-          options={dataDepartment}
-          placeholder="Department"
-          onChange={(e) => onchangeDepartment(e)}
-        />
-        <Select
-          required
-          type="text"
-          name="Municipality"
-          options={dataMunicipality}
-          placeholder="Municipality"
-          onChange={(e) => onchangeMunicipality(e)}
-        />
-      </div>
+      <HeaderPage
+        title="Restaurants"
+        child={
+          <>
+            <Select
+              id={'department'}
+              required
+              type="text"
+              name="Department"
+              options={dataDepartment}
+              placeholder="Department"
+              onChange={(e) => onchangeDepartment(e)}
+            />
+            <Select
+              id={'municipality'}
+              required
+              type="text"
+              name="Municipality"
+              options={dataMunicipality}
+              placeholder="Municipality"
+              onChange={(e) => onchangeMunicipality(e)}
+            />
+          </>
+        }
+        onRefresh={refresh}
+      />
       {loading ? (
         <p>
           <b>Loading...</b>
@@ -97,16 +98,36 @@ function RestaurantsHome() {
         <h1>Not Found</h1>
       ) : (
         <Row>
-          {data?.restaurants?.map(({ id, name, image }) => (
-            <Col key={id} xs={12} md={6} lg={4}>
-              <Card
-                name={name}
-                image={image.secure_url}
-                action={() => navigate(`/home/menus/${id}`)}
-                isActionButtons={true}
-              />
-            </Col>
-          ))}
+          {data?.restaurants?.map(
+            ({
+              id,
+              name,
+              image,
+              department,
+              municipality,
+              direction,
+              delivery,
+              phone,
+              openingHour,
+              closingHour,
+            }) => (
+              <Col key={id} xs={12} md={6} lg={4}>
+                <Card
+                  name={name}
+                  image={image.secure_url}
+                  department={department}
+                  municipality={municipality}
+                  direction={direction}
+                  delivery={delivery}
+                  phone={phone}
+                  opening_hour={openingHour}
+                  closing_hour={closingHour}
+                  action={() => navigate(`/home/menus/${id}`)}
+                  isActionButtons={true}
+                />
+              </Col>
+            )
+          )}
         </Row>
       )}
       <PaginationContainer>
