@@ -23,6 +23,9 @@ const colorsLight = {
   shadow: 'rgba(2, 1, 1, 0.1)',
   text: '#000000',
   nav: 'rgba(228,223,223,0.7)',
+  input: '#F5F5F5',
+  shadowInput: 'rgb(224, 224, 224)',
+  optionHover: '#f5f5f5',
 };
 
 const colorsDark = {
@@ -38,6 +41,9 @@ const colorsDark = {
   inputBorder: '#8853fe',
   container: 'rgba(21,21,21,0.5)',
   nav: 'rgba(21,21,21,0.5)',
+  input: '#161616',
+  shadowInput: 'rgb(207,207,207)',
+  optionHover: '#1d1d1d',
 };
 
 const zIndex = {

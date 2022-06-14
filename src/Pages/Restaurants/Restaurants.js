@@ -26,12 +26,12 @@ function Restaurants() {
         </p>
       ) : (
         <Row>
-          {data?.map(({ id, name, image }) => (
-            <Col key={id} xs={12} md={6} lg={4}>
+          {data?.map((restaurant) => (
+            <Col key={restaurant.id} xs={12} md={6} lg={4}>
               <Card
-                name={name}
-                image={image.secure_url}
-                action={() => navigate(`/app/menus/${id}`)}
+                name={restaurant.name}
+                image={restaurant.image.secure_url}
+                action={() => navigate(`/app/menus/${restaurant.id}`)}
                 isActionButtons={true}
               />
             </Col>

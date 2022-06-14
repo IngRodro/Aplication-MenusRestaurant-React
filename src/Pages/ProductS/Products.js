@@ -3,7 +3,6 @@ import CardRestaurants from 'components/Molecules/Cards/CardProducts';
 import { Col, Row } from 'react-grid-system';
 import useQuery from 'hooks/useQuery';
 import HeaderPage from 'components/Molecules/HeaderPage';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAuth } from 'Context/AuthContext';
 import { useEffect, useState } from 'react';
@@ -25,15 +24,16 @@ const Toast = Swal.mixin({
 });
 
 function Products() {
-  const { visible, onToggle } = useModal();
-  const [searchParams] = useSearchParams();
+  //Se ocupa
   const [productEdit, setProductEdit] = useState(null);
+  //No se ocupa
   const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+  //Se ocupa
+  const { visible, onToggle } = useModal();
   const { visible: isUpdate, onHidden, onVisible } = useModal();
   const { token } = useAuth();
-  const paramPage = searchParams.get('page');
-  const navigate = useNavigate();
-  const { data, loading, refresh } = useQuery(`/products`, paramPage);
+  const { data, loading, refresh } = useQuery(`/products`, page, '', '', true);
   const [DeleteProduct] = useMutation(`/products`, {
     method: 'delete',
     refresh: async () => {
@@ -78,10 +78,12 @@ function Products() {
     });
   };
 
+  //No se ocupa
   useEffect(() => {
     setTotalPages(data?.totalPages);
   }, [data?.totalPages]);
 
+  //Se ocupa
   return (
     <Layout>
       <HeaderPage title="Products" onRefresh={refresh} onAdd={onToggle} />
@@ -110,9 +112,9 @@ function Products() {
           variant="outlined"
           shape="rounded"
           size="large"
-          page={parseInt(paramPage, 10)}
+          page={page}
           onChange={(e, page) => {
-            navigate(`/products?page=${page}`);
+            setPage(page);
           }}
         />
       </PaginationContainer>

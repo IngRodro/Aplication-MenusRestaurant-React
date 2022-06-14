@@ -9,6 +9,7 @@ import Products from 'pages/Products/Products';
 import Menus from 'pages/Menus/Menus';
 import Logout from 'pages/Logout/Logout';
 import SignForm from 'components/Organisms/SignForm';
+import RestaurantsHome from '../pages/Home/RestaurantsHome';
 
 const { ROUTES } = config;
 
@@ -21,7 +22,7 @@ const Routes = () => {
             <Route
               index
               path={ROUTES.HOME_RESTAURANTS.path}
-              element={<SignForm />}
+              element={<RestaurantsHome />}
             />
             <Route path="Sign" element={<SignForm />} />
           </Route>

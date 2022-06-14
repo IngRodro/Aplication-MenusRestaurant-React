@@ -2,7 +2,7 @@ import Modal from 'components/Atoms/Modal';
 import Input from 'components/Atoms/Input';
 import { useAuth } from 'Context/AuthContext';
 import useMutation from 'hooks/useMutation';
-import styled from 'styled-components';
+import { H2, ImagePreview } from './style';
 import { useEffect, useState } from 'react';
 
 const AddProductModal = ({
@@ -106,17 +106,5 @@ const AddProductModal = ({
     </Modal>
   );
 };
-
-const ImagePreview = styled.img`
-  width: 100%;
-  height: auto;
-`;
-
-const H2 = styled.h2`
-  font-size: 1.5rem;
-  margin: 12px;
-  text-align: center;
-  color: ${({ theme }) => theme.colors.black};
-`;
 
 export default AddProductModal;

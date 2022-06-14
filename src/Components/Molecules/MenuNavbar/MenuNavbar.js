@@ -42,7 +42,7 @@ const MenuNavbar = () => {
         color="transparent"
         labelColor="text"
         $type={'PageItem'}
-        onClick={() => navigate('/products?page=1', { replace: true })}
+        onClick={() => navigate('/app/products?page=1', { replace: true })}
       >
         Products
       </StyleMenuItem>
@@ -50,7 +50,7 @@ const MenuNavbar = () => {
         color="transparent"
         labelColor="text"
         $type={'PageItem'}
-        onClick={() => navigate('/restaurants', { replace: true })}
+        onClick={() => navigate('/app/restaurants')}
       >
         Restaurants
       </StyleMenuItem>

@@ -1,11 +1,24 @@
 import axios from 'axios';
 import config from 'config';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuth } from 'Context/AuthContext';
 
 const { baseUrl } = config;
 
-const useQuery = (url, paramPage, needAuth = true) => {
+const useQuery = (
+  url,
+  page = 1,
+  department = '',
+  municipality = '',
+  needAuth = true
+) => {
+  const paramsResolve = useMemo(() => {
+    return {
+      page,
+      department,
+      municipality,
+    };
+  }, [page, department, municipality]);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [errors, setErrors] = useState(null);
@@ -14,14 +27,10 @@ const useQuery = (url, paramPage, needAuth = true) => {
   const getData = useCallback(async () => {
     setLoading(true);
     try {
-      const config = paramPage
-        ? {
-            headers: needAuth ? { 'auth-token': token } : {},
-            params: { page: paramPage },
-          }
-        : { headers: needAuth ? { 'auth-token': token } : {} };
-
-      const { data } = await axios.get(`${baseUrl}${url}`, config);
+      const { data } = await axios.get(`${baseUrl}${url}`, {
+        headers: needAuth ? { 'auth-token': token } : {},
+        params: { ...paramsResolve },
+      });
       console.log(data);
       setData(data);
       setLoading(false);
@@ -31,7 +40,7 @@ const useQuery = (url, paramPage, needAuth = true) => {
       setLoading(false);
       throw new Error(err);
     }
-  }, [url, paramPage, token, needAuth]);
+  }, [url, token, needAuth, paramsResolve]);
 
   useEffect(() => {
     getData().then();

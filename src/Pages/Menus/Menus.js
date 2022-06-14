@@ -120,7 +120,7 @@ function Menus() {
           size="large"
           page={parseInt(page, 10)}
           onChange={(e, page) => {
-            navigate(`/menus?page=${page}`);
+            navigate(`/app/menus?page=${page}`);
           }}
         />
       </PaginationContainer>
