@@ -15,7 +15,7 @@ const Navbar = () => {
         button={true}
         onClick={() => navigate('/home/restaurants')}
       >
-        {isAuthenticated ? 'Restaurants Admin' : 'Restaurants'}
+        {'Bohemia'}
       </Title>
       <MenuNavbar />
     </StyleNavbar>

@@ -31,7 +31,7 @@ const useQuery = (
         headers: needAuth ? { 'auth-token': token } : {},
         params: { ...paramsResolve },
       });
-      console.log(data);
+      console.log(paramsResolve);
       setData(data);
       setLoading(false);
     } catch (err) {

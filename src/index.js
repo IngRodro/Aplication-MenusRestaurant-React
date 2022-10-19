@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
-import GlobalStyle from './styles/global';
+import GlobalStyle from './Styles/global';
 import Routes from 'routes';
-import { themeLight, themeDark } from './styles/theme';
+import { themeLight, themeDark } from './Styles/theme';
 import { AppThemeProvider, useAppTheme } from './Context/themeContext';
 
 const AppRenderTheme = memo(() => {
