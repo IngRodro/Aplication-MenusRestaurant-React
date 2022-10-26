@@ -10,11 +10,9 @@ import {
 import Input from 'components/Atoms/Input';
 import { useAuth } from 'Context/AuthContext';
 import { SignContext } from 'Context/signContext';
-import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
   const { isAuthenticated, login } = useAuth();
-  const navigate = useNavigate();
   const { ChangeSignForm } = useContext(SignContext);
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
@@ -46,7 +44,6 @@ const SignInForm = () => {
         });
       } else {
         await login(Username, Password);
-        window.location.reload();
       }
     }
   };

@@ -5,12 +5,13 @@ import HeaderPage from '../../components/Molecules/HeaderPage';
 import Card from '../../components/Molecules/Cards/CardProducts';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from '@types/react';
 import useModal from '../../hooks/useModal';
 import { useAuth } from '../../Context/AuthContext';
 import useMutation from '../../hooks/useMutation';
 import { PaginationContainer, StyledPagination } from '../style';
-import CreateorUpdateRestaurant from '../../components/Molecules/Modals/CreateorUpdateRestaurant/CreateorUpdateRestaurant';
+import CreateorUpdateProduct from '../../Components/Molecules/Modals/CreateorUpdateProduct/CreateorUpdateProduct';
+import CreateorUpdateRestaurant from '../../Components/Molecules/Modals/CreateorUpdateRestaurant/CreateorUpdateRestaurant';
 
 const Toast = Swal.mixin({
   toast: true,

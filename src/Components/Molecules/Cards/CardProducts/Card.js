@@ -18,6 +18,8 @@ const CardRestaurant = ({
   onDelete,
   onUpdate,
 }) => {
+  console.log(opening_hour);
+  console.log(closing_hour);
   return (
     <StyleWrapper onClick={action}>
       <StyleImage loading="lazy" src={image} />
